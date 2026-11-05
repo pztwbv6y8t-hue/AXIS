@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080f1d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="LIFE RESET">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>LIFE RESET</title>
+<style>
+:root{color-scheme:dark;--bg:#080f1d;--panel:#101b2c;--panel2:#142238;--line:#26364d;--muted:#91a1b8;--text:#f2f6fc;--cyan:#63d9ef;--blue:#648cff;--green:#6de0b1}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#1b3150 0,transparent 55%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+button,input,select{font:inherit}button{cursor:pointer;color:inherit}.app{max-width:620px;margin:auto;padding:calc(18px + env(safe-area-inset-top)) 18px 24px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.brand{font-size:12px;letter-spacing:3px;color:var(--cyan);font-weight:800}.date{font-size:12px;color:var(--muted)}
+h1{font-size:25px;margin:4px 0 6px;letter-spacing:.2px}.sub{font-size:13px;color:var(--muted);margin:0 0 20px}
+.card{background:linear-gradient(145deg,rgba(22,39,62,.96),rgba(13,25,42,.96));border:1px solid var(--line);border-radius:20px;padding:18px;margin:14px 0;box-shadow:0 12px 32px #0002}
+.hero{display:flex;align-items:center;gap:16px}.ring{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--cyan) var(--p,0%),#26364d 0);position:relative;flex-shrink:0}.ring:before{content:"";position:absolute;inset:7px;border-radius:50%;background:#101b2c}.ring strong{position:relative;font-size:21px}.small{font-size:12px;color:var(--muted)}.level{font-size:22px;font-weight:800;margin:2px 0}.xpbar{height:7px;background:#27364b;border-radius:10px;overflow:hidden;margin-top:10px}.xpbar span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:10px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.section-title{font-size:16px;font-weight:750;margin:24px 2px 10px}.stat{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.statbox{background:#0d1929;border:1px solid var(--line);border-radius:14px;padding:12px 10px}.statbox b{display:block;font-size:20px;margin-bottom:3px}.statbox span{font-size:11px;color:var(--muted)}
+.habit{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #26364d}.habit:last-child{border:0}.habit-icon{width:40px;height:40px;border-radius:13px;background:#1b3048;display:grid;place-items:center;font-size:19px}.habit-info{flex:1;min-width:0}.habit-info b{font-size:14px;display:block}.habit-info small{color:var(--muted);font-size:11px}.check{width:38px;height:38px;border-radius:13px;border:1px solid #40516a;background:#15243a;font-size:17px}.check.done{background:#17483f;border-color:#3aa889;color:#8bf0ca}.empty{padding:24px;text-align:center;color:var(--muted);font-size:13px}
+.primary{border:0;border-radius:13px;padding:12px 16px;background:linear-gradient(100deg,#397fba,#4badd0);font-weight:750;color:white}.secondary{border:1px solid var(--line);background:#142238;border-radius:12px;padding:10px 13px;font-size:13px}.danger{color:#ff9a9a}.nav{position:fixed;z-index:5;bottom:0;left:0;right:0;padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:#091321ed;border-top:1px solid #26364d;backdrop-filter:blur(18px);display:flex;justify-content:center}.navinner{width:min(620px,100%);display:grid;grid-template-columns:repeat(5,1fr)}.nav button{border:0;background:none;color:#8293aa;font-size:10px;padding:7px 0}.nav button span{display:block;font-size:19px;margin-bottom:3px}.nav button.active{color:var(--cyan)}
+.page{display:none}.page.active{display:block}.field{display:grid;gap:7px;margin:13px 0}.field label{font-size:12px;color:var(--muted)}input,select{width:100%;background:#0b1727;border:1px solid var(--line);border-radius:11px;color:var(--text);padding:12px;outline:none}input:focus,select:focus{border-color:var(--cyan)}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.days{display:flex;gap:6px;flex-wrap:wrap}.day{border:1px solid var(--line);background:#0c192a;color:var(--muted);border-radius:10px;padding:8px 10px;font-size:12px}.day.sel{background:#164056;color:#b6f5ff;border-color:#3e9bb0}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.calday{text-align:center;padding:9px 0;border-radius:10px;background:#101d30;color:#9aabc1;font-size:12px;min-height:35px}.calday.today{outline:1px solid var(--cyan);color:white}.calday.full{background:#145043;color:#a6f4d6}.calday.partial{background:#34456b;color:#d5e0ff}.calhead{color:#71839b;font-size:10px;text-align:center;padding:5px}
+.achievement{padding:12px;border:1px solid var(--line);border-radius:13px;background:#0d1929;margin:9px 0}.achievement b{font-size:13px}.achievement p{font-size:11px;color:var(--muted);margin:5px 0 0}
+.modalback{position:fixed;inset:0;background:#0009;z-index:10;display:none;align-items:flex-end;justify-content:center}.modalback.show{display:flex}.modal{width:min(620px,100%);background:#101b2c;border:1px solid var(--line);border-radius:22px 22px 0 0;padding:22px 18px calc(24px + env(safe-area-inset-bottom));max-height:90vh;overflow:auto}.modal h2{font-size:19px;margin:0 0 15px}.actions{display:flex;gap:8px;margin-top:16px}.actions>*{flex:1}
+.toast{position:fixed;top:calc(16px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);background:#17364a;border:1px solid #3d8ca5;border-radius:20px;padding:10px 16px;font-size:13px;z-index:20;display:none;white-space:nowrap}
+@media(min-width:600px){.app{padding-top:30px}.modalback{align-items:center}.modal{border-radius:22px}}
+</style>
+</head>
+<body>
+<div class="app">
+ <div class="top"><div class="brand">LIFE RESET</div><div class="date" id="dateLabel"></div></div>
+ <section id="home" class="page active">
+  <h1>今日も、一歩ずつ。</h1><p class="sub" id="dayLabel">66日間のリセットを始めよう。</p>
+  <div class="card hero"><div class="ring" id="progressRing"><strong id="progressPct">0%</strong></div><div style="flex:1"><div class="small">CURRENT LEVEL</div><div class="level" id="levelName">LEVEL 1</div><div class="small"><span id="xpText">0 / 100 XP</span></div><div class="xpbar"><span id="xpBar" style="width:0%"></span></div></div></div>
+  <div class="stat"><div class="statbox"><b id="doneCount">0/0</b><span>今日の達成</span></div><div class="statbox"><b id="streakCount">0日</b><span>連続記録</span></div><div class="statbox"><b id="totalXp">0</b><span>累計 XP</span></div></div>
+  <div class="section-title">TODAY'S HABITS</div><div class="card" id="todayHabits"></div>
+  <div class="row"><span class="small">今日の達成でXPを獲得</span><button class="secondary" onclick="showPage('habits')">習慣を管理する</button></div>
+ </section>
+ <section id="habits" class="page">
+  <h1>習慣</h1><p class="sub">続けたいことを、ここに。</p>
+  <div class="row"><div class="section-title" style="margin:8px 0">MY HABITS</div><button class="primary" onclick="openHabit()">＋ 追加</button></div>
+  <div class="card" id="habitList"></div>
+ </section>
+ <section id="calendar" class="page">
+  <h1>カレンダー</h1><p class="sub">積み重ねた日々を振り返ろう。</p>
+  <div class="card"><div class="row"><button class="secondary" onclick="changeMonth(-1)">‹</button><b id="monthTitle"></b><button class="secondary" onclick="changeMonth(1)">›</button></div><div class="calendar" id="calendarGrid" style="margin-top:14px"></div><p class="small">緑：すべて達成　青：一部達成</p></div>
+  <div class="card"><div class="row"><b>66-DAY JOURNEY</b><b id="journeyText">0 / 66 DAYS</b></div><div class="xpbar" style="margin-top:12px"><span id="journeyBar"></span></div><p class="small" id="journeyCaption">最初の一歩を記録しよう。</p></div>
+ </section>
+ <section id="growth" class="page">
+  <h1>成長</h1><p class="sub">小さな達成も、ちゃんと積み上がっている。</p>
+  <div class="card"><div class="small">TOTAL EXPERIENCE</div><div class="level" id="growthXp">0 XP</div><div class="small" id="growthLevel">LEVEL 1 · BEGINNER</div></div>
+  <div class="section-title">ACHIEVEMENTS</div><div id="achievements"></div>
+ </section>
+ <section id="settings" class="page">
+  <h1>設定</h1><p class="sub">データとアプリの管理。</p>
+  <div class="card"><b>データのバックアップ</b><p class="small">記録はこの端末内に保存されるよ。機種変更などに備えて、定期的に書き出してね。</p><div class="actions"><button class="secondary" onclick="exportData()">データを書き出す</button><button class="secondary" onclick="document.getElementById('importFile').click()">読み込む</button></div><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"></div>
+  <div class="card"><b>66日間の開始日</b><p class="small" id="startDateText">未設定</p><button class="secondary" onclick="resetStart()">今日から数え直す</button></div>
+  <div class="card"><b>データをリセット</b><p class="small">習慣・達成記録・XPをすべて消去します。</p><button class="secondary danger" onclick="resetAll()">すべてのデータを削除</button></div>
+  <p class="small" style="text-align:center;margin-top:25px">LIFE RESET · PERSONAL HABIT TRACKER</p>
+ </section>
+</div>
+<div class="nav"><div class="navinner">
+ <button class="active" data-page="home" onclick="showPage('home')"><span>⌂</span>ホーム</button>
+ <button data-page="habits" onclick="showPage('habits')"><span>◈</span>習慣</button>
+ <button data-page="calendar" onclick="showPage('calendar')"><span>▦</span>記録</button>
+ <button data-page="growth" onclick="showPage('growth')"><span>↗</span>成長</button>
+ <button data-page="settings" onclick="showPage('settings')"><span>⚙</span>設定</button>
+</div></div>
+<div class="modalback" id="modalBack" onclick="if(event.target===this)closeModal()"><div class="modal"><h2 id="modalTitle">習慣を追加</h2>
+ <div class="field"><label>習慣の名前</label><input id="habitName" maxlength="32" placeholder="例：英単語を覚える"></div>
+ <div class="formgrid"><div class="field"><label>難易度</label><select id="habitDifficulty"><option value="5">かんたん · 5 XP</option><option value="10" selected>ふつう · 10 XP</option><option value="20">むずかしい · 20 XP</option><option value="30">チャレンジ · 30 XP</option></select></div><div class="field"><label>1日の目標回数</label><select id="habitTarget"><option value="1">1回</option><option value="2">2回</option><option value="3">3回</option></select></div></div>
+ <div class="field"><label>実施する曜日</label><div class="days" id="dayChoices"></div></div>
+ <div class="actions"><button class="secondary" onclick="closeModal()">キャンセル</button><button class="primary" onclick="saveHabit()">保存する</button></div>
+ <button id="deleteHabitBtn" class="secondary danger" style="width:100%;margin-top:10px;display:none" onclick="deleteHabit()">この習慣を削除</button>
+</div></div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='life-reset-data-v1', week=['日','月','火','水','木','金','土'];
+let data=load(), editId=null, selectedDays=[0,1,2,3,4,5,6], monthCursor=new Date(); monthCursor.setDate(1);
+function today(){let d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function dateObj(s){let [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function addDays(s,n){let d=dateObj(s);d.setDate(d.getDate()+n);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{habits:[],logs:{},xp:0,start:today()}}catch(e){return {habits:[],logs:{},xp:0,start:today()}}}
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function activeHabits(day){let wd=dateObj(day).getDay();return data.habits.filter(h=>h.days.includes(wd)&&!h.deleted)}
+function logFor(day,id){return data.logs[day]?.[id]||0}
+function setLog(day,id,count){if(!data.logs[day])data.logs[day]={};data.logs[day][id]=count;save();render()}
+function totalXP(){return data.xp||0}
+function level(){return Math.floor(totalXP()/100)+1}
+function xpInto(){return totalXP()%100}
+function streak(){let d=today(),n=0;while(true){let hs=activeHabits(d);if(!hs.length)break;let ok=hs.every(h=>logFor(d,h.id)>=h.target);if(!ok && d!==today())break;if(!ok)break;n++;d=addDays(d,-1)}return n}
+function dayIndex(){return Math.max(1,Math.floor((dateObj(today())-dateObj(data.start))/86400000)+1)}
+function fmtDate(d){return `${d.getFullYear()}.${d.getMonth()+1}.${d.getDate()}`}
+function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===p));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===p));render()}
+function render(){let t=today(),hs=activeHabits(t),done=hs.filter(h=>logFor(t,h.id)>=h.target).length,ratio=hs.length?done/hs.length:0;
+document.getElementById('dateLabel').textContent=fmtDate(new Date());document.getElementById('dayLabel').textContent=`DAY ${String(Math.min(dayIndex(),66)).padStart(2,'0')} · 66日間の習慣リセット`;
+document.getElementById('progressRing').style.setProperty('--p',`${ratio*100}%`);document.getElementById('progressPct').textContent=`${Math.round(ratio*100)}%`;
+document.getElementById('levelName').textContent=`LEVEL ${level()}`;document.getElementById('xpText').textContent=`${xpInto()} / 100 XP`;document.getElementById('xpBar').style.width=`${xpInto()}%`;
+document.getElementById('doneCount').textContent=`${done}/${hs.length}`;document.getElementById('streakCount').textContent=`${streak()}日`;document.getElementById('totalXp').textContent=totalXP();
+document.getElementById('todayHabits').innerHTML=hs.length?hs.map(h=>habitHTML(h,t)).join(''):'<div class="empty">まだ習慣が登録されていません。<br>「習慣」から最初のひとつを追加しよう。</div>';
+document.getElementById('habitList').innerHTML=data.habits.filter(h=>!h.deleted).length?data.habits.filter(h=>!h.deleted).map(h=>`<div class="habit"><div class="habit-icon">✦</div><div class="habit-info"><b>${esc(h.name)}</b><small>${h.xp} XP · ${h.target}回/日 · ${h.days.map(d=>week[d]).join('・')}</small></div><button class="secondary" onclick="openHabit('${h.id}')">編集</button></div>`).join(''):'<div class="empty">習慣を追加すると、ここに表示されます。</div>';
+renderCalendar();document.getElementById('growthXp').textContent=`${totalXP()} XP`;document.getElementById('growthLevel').textContent=`LEVEL ${level()} · ${level()>=10?'DEDICATED':level()>=5?'RISING':'BEGINNER'}`;
+let ach=[['FIRST STEP','初めての習慣を達成',Object.values(data.logs).some(x=>Object.values(x).some(v=>v>0))],['7 DAY STREAK','7日連続で記録',streak()>=7],['LEVEL 5','レベル5に到達',level()>=5],['66 DAYS','66日目に到達',dayIndex()>=66],['1000 XP','累計1000 XPを獲得',totalXP()>=1000]];
+document.getElementById('achievements').innerHTML=ach.map(a=>`<div class="achievement"><div class="row"><b>${a[0]}</b><span>${a[2]?'✓':'🔒'}</span></div><p>${a[1]}</p></div>`).join('');
+document.getElementById('journeyText').textContent=`${Math.min(dayIndex(),66)} / 66 DAYS`;document.getElementById('journeyBar').style.width=`${Math.min(dayIndex()/66*100,100)}%`;document.getElementById('journeyCaption').textContent=dayIndex()>=66?'66日間達成！ここからも続けていこう。':`あと ${Math.max(0,66-dayIndex())} 日。自分のペースで続けよう。`;
+document.getElementById('startDateText').textContent=data.start;
+}
+function habitHTML(h,t){let n=logFor(t,h.id),done=n>=h.target;return `<div class="habit"><div class="habit-icon">✦</div><div class="habit-info"><b>${esc(h.name)}</b><small>${n}/${h.target} 回 · ${h.xp} XP${done?' · 達成済み':''}</small></div><button class="check ${done?'done':''}" onclick="increment('${h.id}')">${done?'✓':n?`${n}/${h.target}`:'＋'}</button></div>`}
+function increment(id){let h=data.habits.find(x=>x.id===id),n=logFor(today(),id);if(n>=h.target){setLog(today(),id,0);data.xp=Math.max(0,data.xp-h.xp*h.target);save();toast('今日の達成を取り消しました');return}setLog(today(),id,n+1);data.xp+=h.xp;save();toast(`+${h.xp} XP 獲得！`);render()}
+function openHabit(id){editId=id||null;let h=data.habits.find(x=>x.id===id);document.getElementById('modalTitle').textContent=h?'習慣を編集':'習慣を追加';document.getElementById('habitName').value=h?.name||'';document.getElementById('habitDifficulty').value=h?.xp||10;document.getElementById('habitTarget').value=h?.target||1;selectedDays=h?[...h.days]:[0,1,2,3,4,5,6];document.getElementById('deleteHabitBtn').style.display=h?'block':'none';renderDayChoices();document.getElementById('modalBack').classList.add('show')}
+function renderDayChoices(){document.getElementById('dayChoices').innerHTML=week.map((d,i)=>`<button type="button" class="day ${selectedDays.includes(i)?'sel':''}" onclick="toggleDay(${i})">${d}</button>`).join('')}
+function toggleDay(i){selectedDays=selectedDays.includes(i)?selectedDays.filter(x=>x!==i):[...selectedDays,i];renderDayChoices()}
+function saveHabit(){let name=document.getElementById('habitName').value.trim();if(!name){toast('習慣の名前を入力してね');return}if(!selectedDays.length){toast('曜日を1つ以上選んでね');return}let xp=Number(document.getElementById('habitDifficulty').value),target=Number(document.getElementById('habitTarget').value);if(editId){let h=data.habits.find(x=>x.id===editId);h.name=name;h.xp=xp;h.target=target;h.days=selectedDays}else data.habits.push({id:crypto.randomUUID(),name,xp,target,days:selectedDays});save();closeModal();render();toast('保存しました')}
+function deleteHabit(){if(!confirm('この習慣を削除する？過去の記録とXPは残ります。'))return;let h=data.habits.find(x=>x.id===editId);h.deleted=true;save();closeModal();render()}
+function closeModal(){document.getElementById('modalBack').classList.remove('show')}
+function renderCalendar(){let y=monthCursor.getFullYear(),m=monthCursor.getMonth(),first=new Date(y,m,1),last=new Date(y,m+1,0);document.getElementById('monthTitle').textContent=`${y}年 ${m+1}月`;let out=week.map(d=>`<div class="calhead">${d}</div>`).join('');for(let i=0;i<first.getDay();i++)out+='<div></div>';for(let day=1;day<=last.getDate();day++){let key=`${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`,hs=activeHabits(key),n=hs.filter(h=>logFor(key,h.id)>=h.target).length,cl=hs.length&&n===hs.length?'full':n?'partial':'';out+=`<div class="calday ${cl} ${key===today()?'today':''}" title="${n}/${hs.length}">${day}</div>`}document.getElementById('calendarGrid').innerHTML=out}
+function changeMonth(n){monthCursor.setMonth(monthCursor.getMonth()+n);renderCalendar()}
+function resetStart(){if(confirm('66日間の開始日を今日に設定する？習慣やXPは消えません。')){data.start=today();save();render();toast('開始日を更新しました')}}
+function resetAll(){if(confirm('すべての習慣・記録・XPを削除します。この操作は元に戻せません。')){data={habits:[],logs:{},xp:0,start:today()};save();render();toast('データをリセットしました')}}
+function exportData(){let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='life-reset-backup.json';a.click();URL.revokeObjectURL(a.href)}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let v=JSON.parse(r.result);if(!Array.isArray(v.habits)||!v.logs)throw Error();data=v;save();render();toast('データを読み込みました')}catch(err){alert('読み込めないファイルです')}};r.readAsText(f);e.target.value=''}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+let toastTimer;function toast(s){let el=document.getElementById('toast');el.textContent=s;el.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.style.display='none',1800)}
+render();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>
